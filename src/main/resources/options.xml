@@ -1,0 +1,6 @@
+<?xml version="1.0" ?>
+<options>
+	<option opt="t" required="true"  longOpt="type"   hasArg="true" description="generator type" />
+	<option opt="o" required="true"  longOpt="output" hasArg="true" description="output directory" />
+	<option opt="e" required="false" longOpt="ext"    hasArg="true" description="extension, split by [,]" />
+</options>

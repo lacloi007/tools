@@ -1,0 +1,8 @@
+<?xml version="1.0" ?>
+<profiles>
+	<profile id="tsfw">
+		<!-- Process XLS configuration -->
+		<!-- Generate apply.jsp -->
+		<action bean="F101" />
+	</profile>
+</profiles>
