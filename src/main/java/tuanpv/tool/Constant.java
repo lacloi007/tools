@@ -30,11 +30,22 @@ public class Constant {
 	public static final String SUB_SPLITTER = "-";
 	public static final String SUB_ARGS = "args";
 	public static final String SUB_ACTION = "action";
+	public static final String SUB_DATA = "data";
+	public static final String SUB_MESSAGE = "msg";
 
 	// define KEY
 	public static final String KEY_TYPE = "type";
 	public static final String KEY_OUTPUT = "output";
 	public static final String KEY_EXTENSION = "ext";
+	public static final String KEY_PACKAGE = "package";
+	public static final String KEY_PROJECT = "project";
+	public static final String KEY_APP = "app";
+	public static final String KEY_MESSAGE = "message";
+	public static final String KEY_TRANSLATE = "translate";
+	public static final String KEY_ID = "id";
+	public static final String KEY_ENGLISH = "english";
+	public static final String KEY_JAPAN = "japan";
+	public static final String KEY_CHINA = "china";
 
 	// define PATH
 	public static final String PATH_CONFIG = "config";

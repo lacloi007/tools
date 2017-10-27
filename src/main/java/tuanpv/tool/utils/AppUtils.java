@@ -74,6 +74,14 @@ public class AppUtils {
 		return keyOfSub(Constant.SUB_ACTION, key);
 	}
 
+	public static String keyOfSubData(String key) {
+		return keyOfSub(Constant.SUB_DATA, key);
+	}
+
+	public static String keyOfSubMsg(String key) {
+		return keyOfSub(Constant.SUB_MESSAGE, key);
+	}
+
 	public static String pathOfStructure(Map<String, Object> map) {
 		return join(File.separator, Constant.PATH_DATA, Constant.PATH_STRUCTURE,
 				map.get(keyOfSubArgs(Constant.KEY_TYPE)).toString());

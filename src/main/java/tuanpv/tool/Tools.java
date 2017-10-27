@@ -1,8 +1,8 @@
 package tuanpv.tool;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.context.ApplicationContext;
@@ -28,7 +28,7 @@ public class Tools {
 				if (StringUtils.equals(parameter.get(AppUtils.keyOfSubArgs(Constant.KEY_TYPE)).toString(),
 						profile.id)) {
 					// initialize the data input for Profile Action
-					Map<String, Object> map = new HashMap<>(parameter);
+					Map<String, Object> map = new TreeMap<>(parameter);
 					for (Action action : profile.acts) {
 
 						// run action
@@ -40,7 +40,7 @@ public class Tools {
 							object = AppUtils.getClassByName(action.clazz);
 
 						if (object != null && object instanceof ProfileAction)
-							map = ((ProfileAction) object).execute(context, map, new HashMap<>(action.attr));
+							map = ((ProfileAction) object).execute(context, map, new TreeMap<>(action.attr));
 					}
 
 					return;
