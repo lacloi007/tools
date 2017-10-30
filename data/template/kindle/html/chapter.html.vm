@@ -1,0 +1,16 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<title>Chapter ${chapter.id} - ${chapter.title}</title>
+		<link rel="stylesheet" href="../css/book.css" type="text/css" />
+		<meta http-equiv="content-type" content="application/xhtml+xml; charset=UTF-8" />
+	</head>
+
+	<body>
+		<div>
+			<h2><b>Chapter ${chapter.id}<br />${chapter.title}</b></h2>
+${chapter.content}
+			<h1 class="centered">* * *</h1>
+		</div>
+	</body>
+</html>

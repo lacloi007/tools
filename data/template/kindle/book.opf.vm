@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://www.idpf.org/2007/opf" version="2.0" unique-identifier="BookId">
+
+	<metadata xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:opf="http://www.idpf.org/2007/opf">
+		<dc:title>${book.title}</dc:title>
+		<dc:language>en-us</dc:language>
+		<meta name="cover" content="bookCover" />
+		<dc:identifier id="BookId" opf:scheme="ISBN">9781375890815</dc:identifier>
+		<dc:creator>${book.author}</dc:creator>
+		<dc:publisher>TuanPV</dc:publisher>
+		<dc:subject>${book.title}</dc:subject>
+		<dc:date>2017-10-24</dc:date>
+		<dc:description>A product from TuanPV, email to lacloi007@gmail.com</dc:description>
+	</metadata>
+
+	<manifest>
+		<item id="toc" media-type="application/xhtml+xml" href="html/toc.html"/>
+		<item id="welcome" media-type="application/xhtml+xml" href="html/welcome.html"/>
+#foreach( ${item} in ${chapters} )
+		<item id="${item.code}" media-type="application/xhtml+xml" href="html/${item.html}"/>
+#end
+
+		<!-- table of contents [mandatory] -->
+		<item id="tableOfContent" media-type="application/x-dtbncx+xml" href="xml/book.ncx"/>
+
+		<!-- cover image [mandatory] -->
+		<item id="bookCover" media-type="image/gif" href="image/cover.jpg"/>
+	</manifest>
+
+	<spine toc="tableOfContent">
+		<itemref idref="toc"/>
+		<itemref idref="welcome"/>
+#foreach( ${item} in ${chapters} )
+		<itemref idref="${item.code}"/>
+#end
+	</spine>
+
+	<guide>
+		<reference type="toc" title="Table of Contents" href="html/toc.html"/>
+		<reference type="text" title="Welcome" href="html/welcome.html"/>
+	</guide>
+</package>

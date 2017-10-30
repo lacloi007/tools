@@ -11,6 +11,7 @@ import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
+import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang.ClassUtils;
 import org.apache.commons.lang.StringUtils;
 
@@ -90,5 +91,20 @@ public class AppUtils {
 	public static String pathOfTemplate(Map<String, Object> map) {
 		return join(File.separator, Constant.PATH_DATA, Constant.PATH_TEMPLATE,
 				map.get(keyOfSubArgs(Constant.KEY_TYPE)).toString());
+	}
+
+	public static String pathOfEtc(Map<String, Object> map) {
+		return join(File.separator, Constant.PATH_DATA, Constant.PATH_ETC,
+				map.get(keyOfSubArgs(Constant.KEY_TYPE)).toString());
+	}
+
+	public static String pathOfEtcFile(Map<String, Object> map, String filePath) {
+		return join(File.separator, Constant.PATH_DATA, Constant.PATH_ETC,
+				map.get(keyOfSubArgs(Constant.KEY_TYPE)).toString(), filePath);
+	}
+
+	public static String pathOfEtcFile(Map<String, Object> map, String fileName, String fileExtension) {
+		String fullFileName = join(FilenameUtils.EXTENSION_SEPARATOR_STR, fileName, fileExtension);
+		return pathOfEtcFile(map, fullFileName);
 	}
 }

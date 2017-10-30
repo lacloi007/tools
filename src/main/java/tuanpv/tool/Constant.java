@@ -5,6 +5,7 @@ public class Constant {
 	// define file type
 	public static final String FILE_TYPE_XLS = "xls";
 	public static final String FILE_TYPE_XLSX = "xlsx";
+	public static final String FILE_TYPE_PROPERTIES = "properties";
 
 	// define file name
 	public static final String FILE_APPLICATION_CONTEXT = "applicationContext.xml";
@@ -46,12 +47,27 @@ public class Constant {
 	public static final String KEY_ENGLISH = "english";
 	public static final String KEY_JAPAN = "japan";
 	public static final String KEY_CHINA = "china";
+	public static final String KEY_CONFIG = "conf";
+	public static final String KEY_URL = "url";
+	public static final String KEY_TITLE = "title";
+	public static final String KEY_NAME = "name";
+	public static final String KEY_CODE = "code";
+	public static final String KEY_HTML = "html";
+	public static final String KEY_CATEGORY = "category";
+	public static final String KEY_DESC = "description";
+	public static final String KEY_CONTENT = "content";
+	public static final String KEY_TAGS = "tags";
+	public static final String KEY_LINKS = "links";
+	public static final String KEY_CHAPTERS = "chapters";
+	public static final String KEY_CHAPTER = "chapter";
+	public static final String KEY_INDEX = "index";
 
 	// define PATH
 	public static final String PATH_CONFIG = "config";
 	public static final String PATH_DATA = "data";
 	public static final String PATH_STRUCTURE = "structure";
 	public static final String PATH_TEMPLATE = "template";
+	public static final String PATH_ETC = "etc";
 
 	// define LOG
 	public static final String LOG_STR = "| > %-18s : %s";

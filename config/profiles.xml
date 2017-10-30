@@ -2,7 +2,17 @@
 <profiles>
 	<profile id="tsfw">
 		<!-- Process XLS configuration -->
-		<!-- Generate apply.jsp -->
 		<action bean="F101" />
+	</profile>
+
+	<profile id="kindle">
+		<!-- Process the book download configuration -->
+		<action bean="F201" />
+
+		<!-- Clone structure of kindle book -->
+		<action bean="F202" />
+
+		<!-- Process content and generate book data -->
+		<action bean="F203" />
 	</profile>
 </profiles>
