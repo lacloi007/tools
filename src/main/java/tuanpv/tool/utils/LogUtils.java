@@ -4,6 +4,7 @@ import java.util.Map;
 import java.util.TreeMap;
 
 import tuanpv.tool.Constant;
+import tuanpv.tool.domain.ActionInfo;
 
 public class LogUtils {
 	public static void logOut(String key, String content) {
@@ -12,6 +13,10 @@ public class LogUtils {
 
 	public static void logOut(String key) {
 		System.out.println(String.format(Constant.LOG_MAIN, key));
+	}
+
+	public static void logOut(String key, ActionInfo info) {
+		System.out.println(String.format(Constant.LOG_MAIN_INFO, key, info.value(), info.description()));
 	}
 
 	public static void logErr(String key, String content) {

@@ -5,9 +5,9 @@ import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.context.ApplicationContext;
-import org.springframework.stereotype.Component;
 
 import tuanpv.tool.Constant;
+import tuanpv.tool.domain.ActionInfo;
 import tuanpv.tool.domain.ProfileAction;
 import tuanpv.tool.utils.AppUtils;
 import tuanpv.tool.utils.LogUtils;
@@ -19,8 +19,7 @@ import tuanpv.tool.utils.VelocityUtils;
  * 
  * @author TuanPV
  */
-
-@Component(value = "F201")
+@ActionInfo(value = "F201", description = "Process the book download configuration")
 public class F201Action implements ProfileAction {
 	@Override
 	public Map<String, Object> execute(ApplicationContext context, Map<String, Object> map, Map<String, String> attr)
@@ -34,8 +33,7 @@ public class F201Action implements ProfileAction {
 
 			// load domain configuration
 			String fileDomainProperties = AppUtils.pathOfEtcFile(map,
-					map.get(F2Utils.keyOfSubBook(F2Const.KEY_DOMAIN)).toString(),
-					Constant.FILE_TYPE_PROPERTIES);
+					F2Utils.nameOfDomain(map.get(F2Utils.keyOfSubBook(F2Const.KEY_DOMAIN)).toString()));
 			map.put(F2Utils.keyOfSubBook(Constant.KEY_CONFIG),
 					PropertiesUtils.load2Sub(fileDomainProperties, null, StringUtils.EMPTY));
 

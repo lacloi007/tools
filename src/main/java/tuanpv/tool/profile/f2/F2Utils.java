@@ -14,6 +14,10 @@ public class F2Utils {
 		return String.format(F2Const.FORMAT_REPOSITORY_PROPERTIES, domain);
 	}
 
+	public static String nameOfDomain(String domain) {
+		return String.format(F2Const.FORMAT_DOMAIN_PROPERTIES, domain);
+	}
+
 	public static String keyOfSubBook(String key) {
 		return AppUtils.keyOfSub(F2Const.SUB_BOOK, key);
 	}

@@ -1,6 +1,9 @@
 package tuanpv.tool;
 
 public class Constant {
+	// define log key
+	public static final String LOG_BEGIN = "BEGIN";
+	public static final String LOG_END = "END";
 
 	// define file type
 	public static final String FILE_TYPE_XLS = "xls";
@@ -73,4 +76,5 @@ public class Constant {
 	public static final String LOG_STR = "| > %-18s : %s";
 	public static final String LOG_MAIN = "- %-20s : -----------";
 	public static final String LOG_SUBJECT = "--- %10s %s ---------------";
+	public static final String LOG_MAIN_INFO = "- %-5s %14s : %s";
 }
