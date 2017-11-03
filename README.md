@@ -5,7 +5,8 @@
  `-t=tsfw -o="output" -e="input\im_workflow\definition.xlsx"`
 
 # Kindle book generator
- `-t=kindle -o="output" -e="input\kindle\book.properties"`
+ `tuanpv.tool.Tools -t=kindle -o="output" -e="input\kindle\book.properties"`
+ `kindlegen.exe output\<book-code>\book.opf`
  + Read the book properties from extension
  + Download the content and save it like Kindle format
  + Package to MOBI format via Kindlegen command
