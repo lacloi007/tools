@@ -8,8 +8,8 @@
 
 	<body>
 		<div>
-			<h2><b>${book.title}</b></h2>
-${book.summary}
+			<h2><b>${book-title}</b></h2>
+${book-summary}
 		</div>
 	</body>
 </html>

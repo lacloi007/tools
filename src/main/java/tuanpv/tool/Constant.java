@@ -1,11 +1,15 @@
 package tuanpv.tool;
 
 public class Constant {
+	public static final boolean IS_DEBUG = true;
+	public static final String ENCODE = "UTF-8";
+
 	// define log key
 	public static final String LOG_BEGIN = "BEGIN";
 	public static final String LOG_END = "END";
 
 	// define file type
+	public static final String FILE_TYPE_VM = "vm";
 	public static final String FILE_TYPE_XLS = "xls";
 	public static final String FILE_TYPE_XLSX = "xlsx";
 	public static final String FILE_TYPE_PROPERTIES = "properties";

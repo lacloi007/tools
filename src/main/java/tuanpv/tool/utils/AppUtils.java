@@ -1,8 +1,10 @@
 package tuanpv.tool.utils;
 
 import java.io.File;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
@@ -18,6 +20,16 @@ import org.apache.commons.lang.StringUtils;
 import tuanpv.tool.Constant;
 
 public class AppUtils {
+	public static String uuid() {
+		UUID uuid = UUID.randomUUID();
+		return uuid.toString();
+	}
+
+	public static String today() {
+		Date today = new Date();
+		return String.format("%tY-%tm-%td", today, today, today);
+	}
+
 	public static Object getClassByName(String className) {
 		try {
 			Class<?> clazz = ClassUtils.getClass(className);

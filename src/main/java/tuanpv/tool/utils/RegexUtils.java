@@ -4,8 +4,14 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class RegexUtils {
+	private static final String REGEX_NUMBER = "\\d+";
+
 	public static int parseInt(String string) {
-		Pattern pattern = Pattern.compile("\\d+");
+		return parseInt(REGEX_NUMBER, string);
+	}
+
+	public static int parseInt(String regex, String string) {
+		Pattern pattern = Pattern.compile(regex);
 		Matcher matcher = pattern.matcher(string);
 		if (matcher.find())
 			return Integer.parseInt(matcher.group());

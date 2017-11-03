@@ -4,6 +4,7 @@ import java.util.Date;
 
 public class TestMain {
 	public static void main(String[] args) {
-		System.out.printf("%2tc",2, new Date());
+		Date today = new Date();
+		System.out.printf("%tY-%tm-%td",today,today,today);
 	}
 }

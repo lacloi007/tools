@@ -11,10 +11,9 @@
 			<h1><b>TABLE OF CONTENTS</b></h1> <br />
 
 			<h3><b><a href="Welcome.html">WELCOME</a><br /></b></h3><br />
-#foreach( ${item} in ${chapters} )
-			<h3><b><a href="${item.html}">Chapter ${item.id} : ${item.name}</a><br /></b></h3><br />
+#foreach( ${item} in ${book-chapters} )
+			<h3><b><a href="${item.chapter-html}">Chapter ${item.chapter-id} : ${item.chapter-name}</a><br /></b></h3><br />
 #end
-			<h1 class="centered">* * *</h1>
 		</div>
 	</body>
 </html>

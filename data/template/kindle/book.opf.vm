@@ -2,22 +2,22 @@
 <package xmlns="http://www.idpf.org/2007/opf" version="2.0" unique-identifier="BookId">
 
 	<metadata xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:opf="http://www.idpf.org/2007/opf">
-		<dc:title>${book.title}</dc:title>
+		<dc:title>${book-title}</dc:title>
 		<dc:language>en-us</dc:language>
 		<meta name="cover" content="bookCover" />
-		<dc:identifier id="BookId" opf:scheme="ISBN">9781375890815</dc:identifier>
-		<dc:creator>${book.author}</dc:creator>
+		<dc:identifier id="BookId" opf:scheme="ISBN">${book-uuid}</dc:identifier>
+		<dc:creator>${book-author}</dc:creator>
 		<dc:publisher>TuanPV</dc:publisher>
-		<dc:subject>${book.title}</dc:subject>
-		<dc:date>2017-10-24</dc:date>
+		<dc:subject>${book-title}</dc:subject>
+		<dc:date>${book-date}</dc:date>
 		<dc:description>A product from TuanPV, email to lacloi007@gmail.com</dc:description>
 	</metadata>
 
 	<manifest>
 		<item id="toc" media-type="application/xhtml+xml" href="html/toc.html"/>
 		<item id="welcome" media-type="application/xhtml+xml" href="html/welcome.html"/>
-#foreach( ${item} in ${chapters} )
-		<item id="${item.code}" media-type="application/xhtml+xml" href="html/${item.html}"/>
+#foreach( ${item} in ${book-chapters} )
+		<item id="${item.chapter-code}" media-type="application/xhtml+xml" href="html/${item.chapter-html}"/>
 #end
 
 		<!-- table of contents [mandatory] -->
@@ -30,8 +30,8 @@
 	<spine toc="tableOfContent">
 		<itemref idref="toc"/>
 		<itemref idref="welcome"/>
-#foreach( ${item} in ${chapters} )
-		<itemref idref="${item.code}"/>
+#foreach( ${item} in ${book-chapters} )
+		<itemref idref="${item.chapter-code}"/>
 #end
 	</spine>
 

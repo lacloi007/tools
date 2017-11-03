@@ -14,8 +14,8 @@
 		<meta name="dtb:totalPageCount" content="0"/>
 		<meta name="dtb:maxPageNumber" content="0"/>
 	</head>
-	<docTitle><text>${book.title}</text></docTitle>
-	<docAuthor><text>${book.author}</text></docAuthor>
+	<docTitle><text>${book-title}</text></docTitle>
+	<docAuthor><text>${book-author}</text></docAuthor>
 	<navMap>
 		<navPoint class="toc" id="toc" playOrder="1">
 			<navLabel>
@@ -31,13 +31,13 @@
 			<content src="../html/welcome.html"/>
 		</navPoint>
 #set( $playOrder = 2 )
-#foreach( ${item} in ${chapters} )
+#foreach( ${item} in ${book-chapters} )
 #set( $playOrder = $playOrder + 1 )
-		<navPoint class="chapter" id="${item.code}" playOrder="$playOrder">
+		<navPoint class="chapter" id="${item.chapter-code}" playOrder="$playOrder">
 			<navLabel>
-				<text>Chapter ${item.id} - ${item.name}</text>
+				<text>Chapter ${item.chapter-id} - ${item.chapter-name}</text>
 			</navLabel>
-			<content src="../html/${item.html}"/>
+			<content src="../html/${item.chapter-html}"/>
 		</navPoint>
 #end
 	</navMap>

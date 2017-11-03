@@ -3,29 +3,30 @@ package tuanpv.tool.profile.f2;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
-import org.apache.velocity.app.VelocityEngine;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 
-import tuanpv.common.pool.ThreadPool;
 import tuanpv.tool.Constant;
 import tuanpv.tool.domain.BookParser;
-import tuanpv.tool.task.TaskProcessBook;
+import tuanpv.tool.utils.AppUtils;
 import tuanpv.tool.utils.RegexUtils;
 
 @Component(value = "P201")
 public class P201Parser implements BookParser {
 
 	private static final String DEFAULT_TAB = "\t\t\t";
-	private static final String SELECTOR_LAST_PAGE = "book.selector.lastPage";
-	private static final String SELECTOR_CHAPTER_URL = "book.selector.chapter.url";
-	private static final String SELECTOR_CHAPTER_TITLE = "book.selector.chapter.title";
-	private static final String SELECTOR_CHAPTER_CONTENT = "book.selector.chapter.content";
+	private static final String SELECTOR_LAST_PAGE = "selector.last";
+	private static final String SELECTOR_CHAPTER_URL = "selector.chapter.url";
+	private static final String SELECTOR_CHAPTER_TITLE = "selector.chapter.title";
+	private static final String SELECTOR_CHAPTER_CONTENT = "selector.chapter.content";
+	private static final String SELECTOR_COVER = "selector.cover";
+
+	private static final String REGEX_LAST_PAGE = "regex.last";
 
 	@Override
 	public Document getDocument(String url) throws Exception {
@@ -81,40 +82,82 @@ public class P201Parser implements BookParser {
 	}
 
 	@Override
-	public int getLastPage(Document document, Map<String, Object> map, Map<String, Object> book) {
-		int lastPage = RegexUtils
-				.parseInt(document.select(map.get(SELECTOR_LAST_PAGE).toString()).first().attr("href"));
-
-		book.put("last", lastPage);
-		return lastPage;
+	public int getLastPage(Document document, Map<String, Object> config) {
+		String regex = config.get(REGEX_LAST_PAGE).toString();
+		String selector = config.get(SELECTOR_LAST_PAGE).toString();
+		String data = document.select(selector).first().attr("href");
+		return RegexUtils.parseInt(regex, data);
 	}
 
 	@Override
-	public void processListPage(ApplicationContext context, Document document, ThreadPool pool, String path,
-			Map<String, Object> map, List<Map<String, Object>> list) {
-		Elements links = document.select(map.get(SELECTOR_CHAPTER_URL).toString());
+	public void processListPage(Document document, Map<String, Object> config, List<Map<String, Object>> list) {
+
+		// get the list of link
+		Elements links = document.select(config.get(SELECTOR_CHAPTER_URL).toString());
+
+		// String Regex
+		String regex = config.get(REGEX_LAST_PAGE).toString();
+
+		// get the current index of list chapter
 		int index = list.size();
 		for (Element link : links) {
-			int id = F2Utils.linkId(link);
+			int id = RegexUtils.parseInt(regex, link.html());
 			Map<String, Object> chapter = new HashMap<>();
-			chapter.put(Constant.KEY_INDEX, index++);
-			chapter.put(Constant.KEY_ID, id);
-			chapter.put(Constant.KEY_URL, F2Utils.linkHref(link));
-			chapter.put(Constant.KEY_NAME, F2Utils.linkTitle(link));
-			chapter.put(Constant.KEY_HTML, F2Utils.chapterHtml(index));
-			chapter.put(Constant.KEY_CODE, F2Utils.chapterCode(index));
+			chapter.put(F2Utils.keyOfSubChapter(Constant.KEY_INDEX), index++);
+			chapter.put(F2Utils.keyOfSubChapter(Constant.KEY_ID), id);
+			chapter.put(F2Utils.keyOfSubChapter(Constant.KEY_URL), F2Utils.linkHref(link));
+			chapter.put(F2Utils.keyOfSubChapter(Constant.KEY_NAME), F2Utils.linkTitle(link));
+			chapter.put(F2Utils.keyOfSubChapter(Constant.KEY_HTML), F2Utils.chapterHtml(index));
+			chapter.put(F2Utils.keyOfSubChapter(Constant.KEY_CODE), F2Utils.chapterCode(index));
 
 			// add to list
 			list.add(chapter);
-
-			// create data mapping
-			Map<String, Object> data = new HashMap<>(map);
-			data.put(Constant.KEY_CHAPTER, chapter);
-
-			// add to list
-			TaskProcessBook task = new TaskProcessBook(context.getBean(VelocityEngine.class), path, data, this);
-			pool.execute(task);
 		}
+	}
+
+	@Override
+	public Map<String, Object> processMainPage(Document document, Map<String, Object> config) {
+		Map<String, Object> data = new TreeMap<>();
+
+		// load configuration
+		String[] keys = config.get(F2Const.BOOK_KEYS).toString().split(F2Const.SPLITTER);
+		String[] types = config.get(F2Const.BOOK_KEYS_TYPES).toString().split(F2Const.SPLITTER);
+		String[] selectors = config.get(F2Const.BOOK_KEYS_SELECTORS).toString().split(F2Const.SPLITTER);
+
+		// process each of item base on type
+		for (int idx = 0; idx < keys.length; idx++) {
+			int type = Integer.parseInt(types[idx]);
+			switch (type) {
+			case F2Const.BOOK_ITEM_PARSE_TYPE_NORMAL:
+				data.put(F2Utils.keyOfSubBook(keys[idx]),
+						parseNormal(document.select(config.get(selectors[idx]).toString()).first()));
+				break;
+
+			case F2Const.BOOK_ITEM_PARSE_TYPE_CONTENT:
+				data.put(F2Utils.keyOfSubBook(keys[idx]),
+						parseContent(document.select(config.get(selectors[idx]).toString()).first()));
+				break;
+
+			case F2Const.BOOK_ITEM_PARSE_TYPE_ARRAY:
+				data.put(F2Utils.keyOfSubBook(keys[idx]),
+						parseArray(document.select(config.get(selectors[idx]).toString())));
+				break;
+
+			default:
+				break;
+			}
+		}
+
+		// add more information
+		data.put(F2Utils.keyOfSubBook(F2Const.KEY_UUID), AppUtils.uuid());
+		data.put(F2Utils.keyOfSubBook(F2Const.KEY_DATE), AppUtils.today());
+
+		return data;
+	}
+
+	@Override
+	public String getCoverUrl(Document document, Map<String, Object> map) throws Exception {
+		return document.select(map.get(SELECTOR_COVER).toString()).first().attr("src");
 	}
 
 }
