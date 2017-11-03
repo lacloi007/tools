@@ -9,6 +9,7 @@
  `kindlegen.exe output\<book-code>\book.opf`
  + Read the book properties from extension
  + Download the content and save it like Kindle format
+   https://www.amazon.com/gp/feature.html?docId=1000765211
  + Package to MOBI format via Kindlegen command
 
 # How to clone:
