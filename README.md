@@ -10,6 +10,10 @@
  + Read the book properties from extension
  + Download the content and save it like Kindle format
    https://www.amazon.com/gp/feature.html?docId=1000765211
+ + Store it to data/external with name
+  - kindlegen.exe
+  - kindlegen-mac
+  - kindlegen-unix
  + Package to MOBI format via Kindlegen command
 
 # How to clone:
