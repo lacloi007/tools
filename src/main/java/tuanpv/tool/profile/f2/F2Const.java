@@ -6,6 +6,9 @@ import tuanpv.tool.Constant;
 import tuanpv.tool.utils.AppUtils;
 
 public class F2Const {
+	public static final int COVER_WIDTH = 600;
+	public static final int COVER_HEIGHT = 800;
+
 	public static final int TIMEOUT = 20000;
 	public static final String SPLITTER = ",";
 
@@ -18,6 +21,8 @@ public class F2Const {
 	// define Path
 	public static final String PATH_HTML = "html";
 	public static final String PATH_XML = "xml";
+	public static final String PATH_KINDLE = "kindle";
+	public static final String PATH_IMAGE = "image";
 
 	// define profile sub
 	public static final String SUB_BOOK = "book";
@@ -61,5 +66,6 @@ public class F2Const {
 	public static final String VM_BOOK_OPF = "book.opf";
 
 	// define file
-	public static final String FILE_COVER = AppUtils.join(File.separator, "image", "cover.jpg");;
+	public static final String FILE_COVER = "cover.jpg";
+	public static final String FILE_BOOK_MOBI = "book.mobi";
 }

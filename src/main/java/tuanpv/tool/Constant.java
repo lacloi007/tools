@@ -13,6 +13,7 @@ public class Constant {
 	public static final String FILE_TYPE_XLS = "xls";
 	public static final String FILE_TYPE_XLSX = "xlsx";
 	public static final String FILE_TYPE_PROPERTIES = "properties";
+	public static final String FILE_TYPE_MOBI = "mobi";
 
 	// define file name
 	public static final String FILE_APPLICATION_CONTEXT = "applicationContext.xml";
@@ -74,6 +75,7 @@ public class Constant {
 	public static final String PATH_DATA = "data";
 	public static final String PATH_STRUCTURE = "structure";
 	public static final String PATH_TEMPLATE = "template";
+	public static final String PATH_EXTERNAL = "external";
 	public static final String PATH_ETC = "etc";
 
 	// define LOG

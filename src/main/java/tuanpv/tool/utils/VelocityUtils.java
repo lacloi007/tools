@@ -95,7 +95,7 @@ public class VelocityUtils {
 			FileUtils.write(fileDest, writer.toString(), Constant.ENCODE);
 
 			// log
-			LogUtils.debug("generate-html", pathOfFile);
+			LogUtils.debug("generate-velo", pathOfFile);
 		}
 	}
 }

@@ -51,6 +51,11 @@ public class F2Utils {
 				map.get(keyOfSubBook(Constant.KEY_CODE)).toString());
 	}
 
+	public static String pathOfKindle(Map<String, Object> map) {
+		return AppUtils.join(File.separator, map.get(AppUtils.keyOfSubArgs(Constant.KEY_OUTPUT)).toString(),
+				F2Const.PATH_KINDLE);
+	}
+
 	public static Map<String, Object> bookParams(Object... strings) {
 		Map<String, Object> result = new TreeMap<>();
 

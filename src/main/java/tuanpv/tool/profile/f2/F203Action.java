@@ -11,6 +11,7 @@ import org.apache.commons.lang.StringUtils;
 import org.jsoup.nodes.Document;
 import org.springframework.context.ApplicationContext;
 
+import net.coobird.thumbnailator.Thumbnails;
 import tuanpv.common.pool.ThreadPool;
 import tuanpv.tool.Constant;
 import tuanpv.tool.domain.ActionInfo;
@@ -50,6 +51,9 @@ public class F203Action implements ProfileAction {
 		// process main page
 		Map<String, Object> book = parser.processMainPage(document, config);
 
+		// generate book cover
+		generateCover(document, parser, map, config);
+
 		// create list of Chapter
 		List<Map<String, Object>> chapters = new ArrayList<>();
 
@@ -88,9 +92,6 @@ public class F203Action implements ProfileAction {
 			// generate other resource
 			generateOther(context, map, book);
 		}
-
-		// generate book cover
-		generateCover(document, parser, map, config);
 
 		return map;
 	}
@@ -138,7 +139,7 @@ public class F203Action implements ProfileAction {
 
 	private void generateCover(Document document, BookParser parser, Map<String, Object> map,
 			Map<String, Object> config) throws Exception {
-		String filePath = AppUtils.pathOfFile(F2Utils.pathOfBook(map), F2Const.FILE_COVER);
+		String filePath = AppUtils.pathOfFile(F2Utils.pathOfBook(map), F2Const.PATH_IMAGE, F2Const.FILE_COVER);
 		File destination = new File(filePath);
 		if (destination.exists())
 			return;
@@ -146,5 +147,11 @@ public class F203Action implements ProfileAction {
 		String url = parser.getCoverUrl(document, config);
 		URL img = new URL(url);
 		FileUtils.copyURLToFile(img, destination);
+
+		// scale image
+		Thumbnails.of(filePath).size(F2Const.COVER_WIDTH, F2Const.COVER_HEIGHT).toFile(filePath);
+
+		// log
+		LogUtils.debug("generate-img", filePath);
 	}
 }

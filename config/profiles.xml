@@ -14,5 +14,8 @@
 
 		<!-- Process content and generate book data -->
 		<action bean="F203" />
+
+		<!-- Working with tool [kindlegen] -->
+		<action bean="F204" />
 	</profile>
 </profiles>

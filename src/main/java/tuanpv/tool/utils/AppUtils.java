@@ -119,4 +119,8 @@ public class AppUtils {
 		String fullFileName = join(FilenameUtils.EXTENSION_SEPARATOR_STR, fileName, fileExtension);
 		return pathOfEtcFile(map, fullFileName);
 	}
+
+	public static String pathOfExternal() {
+		return join(File.separator, Constant.PATH_DATA, Constant.PATH_EXTERNAL);
+	}
 }
