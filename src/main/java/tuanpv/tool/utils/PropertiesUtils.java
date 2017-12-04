@@ -9,6 +9,30 @@ import java.util.TreeMap;
 import org.apache.commons.lang.StringUtils;
 
 public class PropertiesUtils {
+	public static Map<String, Object> load2Key(String path, Map<String, Object> map, String sub) throws Exception {
+		return load2Key(new File(path), map, sub);
+	}
+
+	public static Map<String, Object> load2Key(File file, Map<String, Object> map, String sub) throws Exception {
+		if (map == null)
+			map = new TreeMap<>();
+
+		Map<String, Object> content = new TreeMap<>();
+		if (file.exists()) {
+			Properties properties = new Properties();
+			properties.load(new FileReader(file));
+
+			for (Object key : properties.keySet()) {
+				String subValue = properties.getProperty(key.toString());
+				String subKey = key.toString();
+				content.put(subKey, subValue);
+			}
+		}
+
+		map.put(sub, content);
+		return map;
+	}
+
 	public static Map<String, Object> load2Sub(String path, Map<String, Object> map, String sub) throws Exception {
 		return load2Sub(new File(path), map, sub);
 	}

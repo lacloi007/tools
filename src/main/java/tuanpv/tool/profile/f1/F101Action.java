@@ -17,9 +17,9 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.context.ApplicationContext;
-import org.springframework.stereotype.Component;
 
 import tuanpv.tool.Constant;
+import tuanpv.tool.domain.ActionInfo;
 import tuanpv.tool.domain.ProfileAction;
 import tuanpv.tool.utils.AppUtils;
 import tuanpv.tool.utils.LogUtils;
@@ -31,7 +31,7 @@ import tuanpv.tool.utils.PoiUtils;
  * @author TuanPV
  */
 
-@Component(value = "F101")
+@ActionInfo(value = "F101", description = "Process the file Excel configuration")
 public class F101Action implements ProfileAction {
 	@Override
 	public Map<String, Object> execute(ApplicationContext context, Map<String, Object> map, Map<String, String> attr)
@@ -48,6 +48,7 @@ public class F101Action implements ProfileAction {
 		return map;
 	}
 
+	@SuppressWarnings("unused")
 	private void load(Map<String, Object> map, File fileConfig) throws Exception {
 		Workbook workbook = initWorkbook(fileConfig);
 
@@ -61,13 +62,15 @@ public class F101Action implements ProfileAction {
 		processSheetMessage(map, sheet, F1Const.SHEET_MESSAGE_DATA_START, F1Const.SHEET_MESSAGE_DATA_KEYS);
 
 		int screenIdx = 1;
-		sheet = workbook.getSheet(getScreenSheetName(screenIdx));
+		sheet = workbook.getSheet(sheetScreenName(screenIdx));
 		while (sheet != null) {
+
+			// TODO : need to implement
 			Map<String, Object> scMap = new TreeMap<>();
 
 			// load new sheet
 			screenIdx = screenIdx + 1;
-			sheet = workbook.getSheet(getScreenSheetName(screenIdx));
+			sheet = workbook.getSheet(sheetScreenName(screenIdx));
 		}
 	}
 
@@ -124,7 +127,7 @@ public class F101Action implements ProfileAction {
 		return workbook;
 	}
 
-	private String getScreenSheetName(int id) {
+	private String sheetScreenName(int id) {
 		return String.format(F1Const.SHEET_SCREEN_FORMATTER, id);
 	}
 }

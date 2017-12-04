@@ -2,7 +2,7 @@
 <profiles>
 	<profile id="tsfw">
 		<!-- Process XLS configuration -->
-		<action bean="F101" />
+		<action bean="F102" />
 	</profile>
 
 	<profile id="kindle">
@@ -17,5 +17,21 @@
 
 		<!-- Working with tool [kindlegen] -->
 		<action bean="F204" />
+	</profile>
+
+	<!-- This tool will load a form for user check all the new information
+	     IF the subject is comic, tool provide a download function book via kindle
+	  -->
+	<profile id="notification">
+		<!-- Process notifier configuration -->
+		<action bean="F301" />
+	</profile>
+
+	<!-- This tool will load a form for user check all the new information
+	     IF the subject is comic, tool provide a download function book via kindle
+	  -->
+	<profile id="notification">
+		<!-- Process notifier configuration -->
+		<action bean="F301" />
 	</profile>
 </profiles>

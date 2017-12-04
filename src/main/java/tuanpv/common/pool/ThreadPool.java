@@ -2,20 +2,19 @@ package tuanpv.common.pool;
 
 import java.util.concurrent.LinkedBlockingQueue;
 
-@SuppressWarnings({ "rawtypes", "unchecked" })
 public class ThreadPool {
 	private final int nThreads;
-	private final PoolWorker[] threads;
-	private final LinkedBlockingQueue queue;
+	private final ThreadWorker[] threads;
+	private final LinkedBlockingQueue<Runnable> queue;
 
 	public ThreadPool(int nThreads) {
 		this.nThreads = nThreads;
 
-		queue = new LinkedBlockingQueue();
-		threads = new PoolWorker[nThreads];
+		queue = new LinkedBlockingQueue<>();
+		threads = new ThreadWorker[nThreads];
 
 		for (int i = 0; i < this.nThreads; i++) {
-			threads[i] = new PoolWorker();
+			threads[i] = new ThreadWorker(queue);
 			threads[i].start();
 		}
 	}
@@ -36,7 +35,7 @@ public class ThreadPool {
 
 		while (true) {
 			boolean isFinish = true;
-			for (PoolWorker thread : threads) {
+			for (ThreadWorker thread : threads) {
 				if (!isFinish)
 					continue;
 
@@ -47,34 +46,7 @@ public class ThreadPool {
 				break;
 		}
 
-		for (PoolWorker thread : threads)
+		for (ThreadWorker thread : threads)
 			thread.stop();
-	}
-
-	private class PoolWorker extends Thread {
-
-		public void run() {
-			Runnable task;
-
-			while (true) {
-				synchronized (queue) {
-					while (queue.isEmpty()) {
-						try {
-							queue.wait();
-						} catch (InterruptedException e) {
-							System.out.println("An error occurred while queue is waiting: " + e.getMessage());
-						}
-					}
-
-					task = (Runnable) queue.poll();
-				}
-
-				try {
-					task.run();
-				} catch (RuntimeException e) {
-					System.out.println("Thread pool is interrupted due to an issue: " + e.getMessage());
-				}
-			}
-		}
 	}
 }

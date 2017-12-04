@@ -29,7 +29,8 @@ public class TestExe {
 		builder.directory(directory);
 		try {
 			Process process = builder.start();
-			int waitFlag = process.waitFor();
+			//int waitFlag = process.waitFor();
+			process.waitFor();
 
 			/*if (waitFlag == 0) {
 				int returnVal = process.exitValue();
