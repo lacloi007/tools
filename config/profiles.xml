@@ -30,8 +30,8 @@
 	<!-- This tool will load a form for user check all the new information
 	     IF the subject is comic, tool provide a download function book via kindle
 	  -->
-	<profile id="notification">
+	<profile id="kpic">
 		<!-- Process notifier configuration -->
-		<action bean="F301" />
+		<action bean="F401" />
 	</profile>
 </profiles>

@@ -102,16 +102,16 @@ public class F204Action implements ProfileAction {
 	}
 
 	private String getExecution() {
-		String result = StringUtils.EMPTY;
+
 		if (SystemUtils.IS_OS_WINDOWS)
-			result = "kindlegen.exe";
+			return "kindlegen.exe";
 
 		if (SystemUtils.IS_OS_MAC_OSX)
-			result = "kindlegen-mac";
+			return "kindlegen-mac";
 
 		if (SystemUtils.IS_OS_LINUX)
-			result = "kindlegen-unix";
+			return "kindlegen-unix";
 
-		return result;
+		return StringUtils.EMPTY;
 	}
 }

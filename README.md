@@ -5,8 +5,10 @@
  `-t=tsfw -o="output" -e="input\im_workflow\definition.xlsx"`
 
 # Kindle book generator
- `tuanpv.tool.Tools -t=kindle -o="output" -e="input\kindle\book.properties"`
+ `tuanpv.tool.Tools -t=kindle -o="output" -e="input//kindle//book.properties"`
  `kindlegen.exe output\<book-code>\book.opf`
+ 
+ `tuanpv.tool.Tools -t=kpic -o="output" -e="input//kpic//book.properties"`
  + Read the book properties from extension
  + Download the content and save it like Kindle format
    https://www.amazon.com/gp/feature.html?docId=1000765211

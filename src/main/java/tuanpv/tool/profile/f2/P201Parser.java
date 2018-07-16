@@ -18,19 +18,20 @@ import tuanpv.tool.utils.RegexUtils;
 
 @Component(value = "P201")
 public class P201Parser implements BookParser {
-
-	private static final String DEFAULT_TAB = "\t\t\t";
-	private static final String SELECTOR_LAST_PAGE = "selector.last";
-	private static final String SELECTOR_CHAPTER_URL = "selector.chapter.url";
-	private static final String SELECTOR_CHAPTER_TITLE = "selector.chapter.title";
-	private static final String SELECTOR_CHAPTER_CONTENT = "selector.chapter.content";
-	private static final String SELECTOR_COVER = "selector.cover";
-
-	private static final String REGEX_LAST_PAGE = "regex.last";
+	public static final String DEFAULT_TAB = "\t\t\t";
+	public static final String SELECTOR_LAST_PAGE = "selector.last";
+	public static final String SELECTOR_LAST_LIST = "selector.last.list";
+	public static final String SELECTOR_CHAPTER_URL = "selector.chapter.url";
+	public static final String SELECTOR_CHAPTER_TITLE = "selector.chapter.title";
+	public static final String SELECTOR_CHAPTER_CONTENT = "selector.chapter.content";
+	public static final String SELECTOR_COVER = "selector.cover";
+	public static final String REGEX_LAST_PAGE = "regex.last";
 
 	@Override
 	public Document getDocument(String url) throws Exception {
-		return Jsoup.connect(url).userAgent("Mozilla").cookie("auth", "token").timeout(F2Const.TIMEOUT).get();
+		return Jsoup.connect(url)
+				.userAgent("Mozilla/5.0 (Windows; U; WindowsNT 5.1; en-US; rv1.8.1.6) Gecko/20070725 Firefox/2.0.0.6")
+				.referrer("http://www.google.com").timeout(F2Const.TIMEOUT).get();
 	}
 
 	@Override
@@ -85,7 +86,17 @@ public class P201Parser implements BookParser {
 	public int getLastPage(Document document, Map<String, Object> config) {
 		String regex = config.get(REGEX_LAST_PAGE).toString();
 		String selector = config.get(SELECTOR_LAST_PAGE).toString();
-		String data = document.select(selector).first().attr("href");
+		String selectorList = config.get(SELECTOR_LAST_LIST).toString();
+
+		Elements elements = document.select(selector);
+		Element link = null;
+		if (elements.isEmpty()) {
+			elements = document.select(selectorList);
+			link = elements.last();
+		} else
+			link = elements.first();
+
+		String data = link.attr("href");
 		return RegexUtils.parseInt(regex, data);
 	}
 
