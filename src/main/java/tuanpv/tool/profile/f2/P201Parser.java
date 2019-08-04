@@ -29,6 +29,11 @@ public class P201Parser implements BookParser {
 
 	@Override
 	public Document getDocument(String url) throws Exception {
+		if (url.contains("https:"))
+			return Jsoup.connect(url)
+					.userAgent("Mozilla/5.0 (Windows; U; WindowsNT 5.1; en-US; rv1.8.1.6) Gecko/20070725 Firefox/2.0.0.6")
+					.referrer("http://www.google.com").timeout(F2Const.TIMEOUT)
+					.sslSocketFactory(F2Utils.socketFactory()).get();
 		return Jsoup.connect(url)
 				.userAgent("Mozilla/5.0 (Windows; U; WindowsNT 5.1; en-US; rv1.8.1.6) Gecko/20070725 Firefox/2.0.0.6")
 				.referrer("http://www.google.com").timeout(F2Const.TIMEOUT).get();
@@ -170,5 +175,4 @@ public class P201Parser implements BookParser {
 	public String getCoverUrl(Document document, Map<String, Object> map) throws Exception {
 		return document.select(map.get(SELECTOR_COVER).toString()).first().attr("src");
 	}
-
 }

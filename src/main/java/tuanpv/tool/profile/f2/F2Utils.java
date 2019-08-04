@@ -1,8 +1,16 @@
 package tuanpv.tool.profile.f2;
 
 import java.io.File;
+import java.security.KeyManagementException;
+import java.security.NoSuchAlgorithmException;
+import java.security.cert.X509Certificate;
 import java.util.Map;
 import java.util.TreeMap;
+
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLSocketFactory;
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.X509TrustManager;
 
 import org.jsoup.nodes.Element;
 
@@ -63,5 +71,27 @@ public class F2Utils {
 			result.put(F2Const.PARAM_KEYS[idx], strings[idx]);
 
 		return result;
+	}
+	
+	public static SSLSocketFactory socketFactory() {
+		TrustManager[] trustAllCerts = new TrustManager[] { new X509TrustManager() {
+			public java.security.cert.X509Certificate[] getAcceptedIssuers() {
+				return null;
+			}
+
+			public void checkClientTrusted(X509Certificate[] certs, String authType) {
+			}
+
+			public void checkServerTrusted(X509Certificate[] certs, String authType) {
+			}
+		} };
+
+		try {
+			SSLContext sslContext = SSLContext.getInstance("TLS");
+			sslContext.init(null, trustAllCerts, new java.security.SecureRandom());
+			return sslContext.getSocketFactory();
+		} catch (NoSuchAlgorithmException | KeyManagementException e) {
+			throw new RuntimeException("Failed to create a SSL socket factory", e);
+		}
 	}
 }

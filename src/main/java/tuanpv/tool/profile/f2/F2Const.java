@@ -9,7 +9,7 @@ public class F2Const {
 	public static final int COVER_WIDTH = 600;
 	public static final int COVER_HEIGHT = 800;
 
-	public static final int TIMEOUT = 60000;
+	public static final int TIMEOUT = 2000;
 	public static final String SPLITTER = ",";
 
 	// define String for formatting something
