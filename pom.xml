@@ -9,7 +9,7 @@
 	<properties>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
-		<spring.version>5.0.1.RELEASE</spring.version>
+		<spring.version>5.3.1</spring.version>
 		<aspectj.version>1.8.12</aspectj.version>
 		<poi.version>3.17</poi.version>
 		<jsoup.version>1.12.1</jsoup.version>
