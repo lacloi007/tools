@@ -1,20 +1,14 @@
 package tuanpv.tool.gui;
 
 import java.awt.Dimension;
-import java.awt.EventQueue;
-import java.util.TreeMap;
 
-import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JMenuBar;
 import javax.swing.JTextField;
 
-import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 
 import tuanpv.swing.utils.SwingUtils;
-import tuanpv.tool.profile.f2.F2Utils;
 
 @SuppressWarnings("unused")
 public class ToolFrame extends JFrame {
@@ -60,19 +54,5 @@ public class ToolFrame extends JFrame {
 	}
 
 	private void loadRepository() {
-	}
-
-	@Test
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					ToolFrame window = new ToolFrame(null);
-					window.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
 	}
 }
