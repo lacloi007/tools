@@ -12,7 +12,7 @@
 		<spring.version>5.3.1</spring.version>
 		<aspectj.version>1.8.12</aspectj.version>
 		<poi.version>3.17</poi.version>
-		<jsoup.version>1.12.1</jsoup.version>
+		<jsoup.version>1.14.2</jsoup.version>
 		<velocity.version>1.7</velocity.version>
 	</properties>
 
