@@ -15,17 +15,16 @@ import tuanpv.tool.utils.AppUtils;
 import tuanpv.tool.utils.XmlUtils;
 
 public class Tools {
-	private static ApplicationContext context;
 
-	public static void main(String[] args) {
-		context = new ClassPathXmlApplicationContext(Constant.FILE_APPLICATION_CONTEXT);
+    public static void main(String[] args) {
+        ApplicationContext context = new ClassPathXmlApplicationContext(Constant.FILE_APPLICATION_CONTEXT);
 
 		Map<String, String> parameter = null;
 		try {
 			parameter = AppUtils.parseArguments(args);
 			List<Profile> profiles = XmlUtils.parseProfile(AppUtils.pathOfFileConfig(Constant.FILE_PROFILE));
 			for (Profile profile : profiles) {
-				if (StringUtils.equals(parameter.get(AppUtils.keyOfSubArgs(Constant.KEY_TYPE)).toString(),
+				if (StringUtils.equals(parameter.get(AppUtils.keyOfSubArgs(Constant.KEY_TYPE)),
 						profile.id)) {
 					// initialize the data input for Profile Action
 					Map<String, Object> map = new TreeMap<>(parameter);
