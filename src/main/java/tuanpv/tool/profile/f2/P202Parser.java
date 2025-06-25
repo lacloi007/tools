@@ -52,7 +52,7 @@ public class P202Parser extends P201Parser {
 				Connection.Response response = Jsoup.connect(url)
 						.userAgent("Mozilla/5.0 (Windows NT 6.2; WOW64; rv:29.0) Gecko/20100101 Firefox/29.0")
 						.method(Connection.Method.GET).execute();
-				if (response.statusCode() == 200)
+				if (response.statusCode() == 200 || response.statusCode() == 304)
 					return response.parse();
 
 				throw new Exception();

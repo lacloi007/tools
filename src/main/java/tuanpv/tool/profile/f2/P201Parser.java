@@ -1,9 +1,6 @@
 package tuanpv.tool.profile.f2;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.*;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -70,7 +67,7 @@ public class P201Parser implements BookParser {
 
 	@Override
 	public String parseNormal(Element element) {
-		return element.html();
+		return element != null ? element.html() : "";
 	}
 
 	@Override

@@ -39,10 +39,13 @@ public class F2Const {
 
 	// define book type
 	public static final String BOOK_TYPE_NORMAL = "1";
+	public static final String BOOK_TYPE_REGULAR = "2";
+	public static final String BOOK_TYPE_SKIP_FIRST = "3";
 
 	// define repository code
 	public static final String STR_TEMPLATE_MAIN_URL = "book.main.url";
 	public static final String STR_TEMPLATE_PAGE_URL = "book.page.url";
+	public static final String STR_TEMPLATE_CHAPTER_URL = "book.chapter.url";
 
 	// define book keys
 	public static final String BOOK_KEYS = "keys";

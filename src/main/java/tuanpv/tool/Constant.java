@@ -69,6 +69,7 @@ public class Constant {
 	public static final String KEY_CHAPTERS = "chapters";
 	public static final String KEY_CHAPTER = "chapter";
 	public static final String KEY_INDEX = "index";
+	public static final String KEY_TOTAL_CHAPTER = "total";
 
 	// define PATH
 	public static final String PATH_CONFIG = "config";

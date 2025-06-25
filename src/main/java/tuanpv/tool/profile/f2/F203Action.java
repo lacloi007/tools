@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -86,6 +87,56 @@ public class F203Action implements ProfileAction {
             LogUtils.logOut("process", "load " + lastPage + " pages is success!");
         }
 
+        if (StringUtils.equals(F2Const.BOOK_TYPE_REGULAR, bookType)) {
+            int totalChapters = Integer.parseInt(map.get(F2Utils.keyOfSubBook(Constant.KEY_TOTAL_CHAPTER)).toString());
+            for (int index = 1; index <= totalChapters; index ++) {
+                // get document of each page
+                url = VelocityUtils.generateString(context, F2Const.STR_TEMPLATE_CHAPTER_URL,
+                        F2Utils.bookParams(bookCd, index));
+
+                final Map<String, Object> chapter = new HashMap<>();
+                chapter.put(F2Utils.keyOfSubChapter(Constant.KEY_INDEX), index);
+                chapter.put(F2Utils.keyOfSubChapter(Constant.KEY_ID), index);
+                chapter.put(F2Utils.keyOfSubChapter(Constant.KEY_URL), url);
+                chapter.put(F2Utils.keyOfSubChapter(Constant.KEY_NAME), "Chapter " + index);
+                chapter.put(F2Utils.keyOfSubChapter(Constant.KEY_HTML), F2Utils.chapterHtml(index));
+                chapter.put(F2Utils.keyOfSubChapter(Constant.KEY_CODE), F2Utils.chapterCode(index));
+
+                // add to list
+                chapters.add(chapter);
+            }
+
+            // log processing
+            LogUtils.logOut("process", "prepare chapter list is success!");
+        }
+
+        if (StringUtils.equals(F2Const.BOOK_TYPE_SKIP_FIRST, bookType)) {
+            int totalChapters = Integer.parseInt(map.get(F2Utils.keyOfSubBook(Constant.KEY_TOTAL_CHAPTER)).toString());
+            for (int index = 1; index <= totalChapters; index ++) {
+                if (index == 1) {
+                    url = VelocityUtils.generateString(context, F2Const.STR_TEMPLATE_MAIN_URL,
+                            F2Utils.bookParams(bookCd));
+                } else {
+                    url = VelocityUtils.generateString(context, F2Const.STR_TEMPLATE_CHAPTER_URL,
+                            F2Utils.bookParams(bookCd, index));
+                }
+
+                final Map<String, Object> chapter = new HashMap<>();
+                chapter.put(F2Utils.keyOfSubChapter(Constant.KEY_INDEX), index);
+                chapter.put(F2Utils.keyOfSubChapter(Constant.KEY_ID), index);
+                chapter.put(F2Utils.keyOfSubChapter(Constant.KEY_URL), url);
+                chapter.put(F2Utils.keyOfSubChapter(Constant.KEY_NAME), "Chapter " + index);
+                chapter.put(F2Utils.keyOfSubChapter(Constant.KEY_HTML), F2Utils.chapterHtml(index));
+                chapter.put(F2Utils.keyOfSubChapter(Constant.KEY_CODE), F2Utils.chapterCode(index));
+
+                // add to list
+                chapters.add(chapter);
+            }
+
+            // log processing
+            LogUtils.logOut("process", "prepare chapter list is success!");
+        }
+
         if (!chapters.isEmpty()) {
 
             // put list of chapter to book data
@@ -151,11 +202,11 @@ public class F203Action implements ProfileAction {
 
         FileUtils.forceMkdirParent(destination);
 
-        String url = parser.getCoverUrl(document, config);
-        URL img = new URL(url);
         try {
+            String url = parser.getCoverUrl(document, config);
+            URL img = new URL(url);
             FileUtils.copyURLToFile(img, destination);
-        } catch (final IOException exception) {
+        } catch (final Exception exception) {
             createBlankCover(destination);
         }
 
